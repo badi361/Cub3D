@@ -26,7 +26,6 @@ $(GNL):
 
 clean:
 	rm -f *.o
-	@make clean -C ./mlx
 	@make clean -C ./libft
 	@make clean -C ./get_next_line
 

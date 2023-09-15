@@ -1,2 +1,5 @@
 makefile da wildcart yasak (*)
 son satırda enter atınca seg yiyor
+make clean mlxi silmiyor
+map e boşluklu F geliyorsa patlıyor
+mapteki tab lar mapi bozmuyor. yapan birine sor!
