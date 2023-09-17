@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:56:28 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/15 19:32:54 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/16 15:14:08 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	map_check(t_data *data)
         i = 0;
         while(data->map[j][i])
         {
-			if (data->map[j][i] == ' ' || data->map[j][i] == '\t' || data->map[j][i] == '1' 
+			if (data->map[j][i] == ' ' || data->map[j][i] == '1' 
 			|| data->map[j][i] == '0' || data->map[j][i] == '\n')
 			{
 				if (data->map[j][i] == '0')

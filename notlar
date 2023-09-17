@@ -3,3 +3,15 @@ son satırda enter atınca seg yiyor
 make clean mlxi silmiyor
 map e boşluklu F geliyorsa patlıyor
 mapteki tab lar mapi bozmuyor. yapan birine sor!
+renklerdeki sayılar 255i geçemez
+
+alttaki map geçiyor
+-------
+	1 
+1N1
+ 1
+ -------
+
+ tabları hata say // tabları sildim
+
+ dont forget to destroy images

@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:12:22 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/15 19:32:38 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/16 15:27:55 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,22 @@ int	path_helper(char a, char b, t_data *data)
 		data->floor.r = ft_atoi(str[0]);
 		data->floor.g = ft_atoi(str[1]);
 		data->floor.b = ft_atoi(str[2]);
+
+		if(data->floor.r < 0 || data->floor.r > 255)
+		{
+			printf("RGB Erorr\n");
+			return (1);
+		}
+		if(data->floor.g < 0 || data->floor.g > 255)
+		{
+			printf("RGB Erorr\n");
+			return (1);
+		}
+		if(data->floor.b < 0 || data->floor.b > 255)
+		{
+			printf("RGB Erorr\n");
+			return (1);
+		}
 	}
 	if (a == 'C' && b == ' ')
 	{
@@ -86,9 +102,23 @@ int	path_helper(char a, char b, t_data *data)
 		data->sky.r = ft_atoi(str[0]);
 		data->sky.g = ft_atoi(str[1]);
 		data->sky.b = ft_atoi(str[2]);
+
+		if(data->sky.r < 0 || data->sky.r > 255)
+		{
+			printf("RGB Erorr\n");
+			return (1);
+		}
+		if(data->sky.g < 0 || data->sky.g > 255)
+		{
+			printf("RGB Erorr\n");
+			return (1);
+		}
+		if(data->sky.b < 0 || data->sky.b > 255)
+		{
+			printf("RGB Erorr\n");
+			return (1);
+		}
 		return (3);
 	}
 	return (0);
 }
-
-

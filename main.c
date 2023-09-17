@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 16:48:48 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/15 19:37:10 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/16 18:06:11 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void data_init(t_data *data)
 	data->sky.r = 0;
 	data->sky.g = 0;
 	data->sky.b = 0;
+
+
 }
 
 int main(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 16:49:17 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/15 19:54:15 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/16 19:42:07 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct texture
 {
 	void *image;
 	char *path;
+	int w;
+	int h;
 }	t_texture;
 
 typedef struct color
@@ -49,6 +51,7 @@ typedef struct cub3d
 	void	*mlx_window;
 	char **map; //
 	char *image_path;
+	int move[6];
 	t_texture	north;
 	t_texture	south;
 	t_texture	west;
@@ -74,4 +77,10 @@ int		ft_exit(int key, t_data *data);
 
 int		is_map_one(t_data *data);
 int		is_false(char c);
+int	routine(t_data *data);//a
+int start_game(t_data *data); //a
+void	init_textures(t_data *data);
+int	ft_create_trgb(int t, int r, int g, int b);//a
+void	create_background(t_data *data);
+void	create_wall(t_data *data);
 #endif
