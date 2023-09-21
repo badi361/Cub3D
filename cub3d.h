@@ -5,82 +5,97 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 16:49:17 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/16 19:42:07 by yturgut          ###   ########.fr       */
+/*   Created: 2023/09/17 18:38:03 by yturgut           #+#    #+#             */
+/*   Updated: 2023/09/21 16:01:15 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
 
-# define WIDTH 800
-# define HEIGHT 600
 
+#define mapWidth 24
+#define mapHeight 24
+#define screenWidth 1920
+#define screenHeight 1080
+extern int worldMap[mapWidth][mapHeight];
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
+#include <sys/time.h>
 # include "./mlx/mlx.h"
 # include "./libft/libft.h" 
 # include "./get_next_line/get_next_line.h" 
 
-typedef struct texture
-{
-	void *image;
-	char *path;
-	int w;
-	int h;
+
+typedef struct s_texture{
+	void	*image;
+	char	*path;
+	char	*data;
+	int		use;
+	int		w;
+	int		h;
+	int		bpp;
+	int		sizeline;
+	int		endian;
 }	t_texture;
 
-typedef struct color
+typedef struct s_img{
+	void	*window;
+	int		*image;
+	char	*data;
+	int		bpp; 
+	int		sizeline;
+	int		endian; 
+}	t_img;
+
+
+
+
+
+
+typedef struct s_data
 {
-	int	r;
-	int g;
-	int b;
-}	t_color;
-typedef struct cub3d
-{
-	int mapx_size; //
-	int mapy_size;
-	int cub_size;
-	int start_player_x;
-	int start_player_y;
-	int player_size;
-	int zero_size;
-	void	*mlx_ptr;
-	void	*mlx_window;
-	char **map; //
-	char *image_path;
+	void *mlx;
+	void *win;
 	int move[6];
-	t_texture	north;
-	t_texture	south;
-	t_texture	west;
-	t_texture	east;
-	t_color		floor;
-	t_color		sky;
-}				t_data;
+	double moveSpeed;
+	double rotSpeed;
+	double posX,posY;  //x and y start position
+	double dirX,dirY; //initial direction vector
+	double planeX,planeY; //the 2d raycaster version of camera plane
+	t_texture north;
+	t_texture east;
+	t_texture west;
+	t_texture south;
+	t_img img;
+	
+	int floorc;
+	int skyc;
+
+} t_data;
 
 
-int		arg_control(int ac, char **av);
-int		get_map(char *av, t_data *data);
-void	get_map2(char *av, t_data *data);
-int		map_check(t_data *data);
-int		wall_check(t_data *data);
-int		wall_check_s_e(t_data *data);
-int		is_true(char c);
-int		player_check(t_data *data);
-int		size_control(t_data *data);
-int		start_game(t_data *data);
-int		path_helper(char a, char b, t_data *data);
-int		ft_exit(int key, t_data *data);
 
 
-int		is_map_one(t_data *data);
-int		is_false(char c);
-int	routine(t_data *data);//a
-int start_game(t_data *data); //a
-void	init_textures(t_data *data);
-int	ft_create_trgb(int t, int r, int g, int b);//a
+void	start_img(t_data *data);
+void	open_textures(t_data *data);
+void	img_pix_put(t_img *img, int x, int y, int color);
 void	create_background(t_data *data);
-void	create_wall(t_data *data);
+void	move_forward(t_data *data);
+void	move_back(t_data *data);
+void	move_left(t_data *data);
+void	move_right(t_data *data);
+void	rotate_right(t_data *data);
+void	rotate_left(t_data *data);
+int		key_press(int keycode, t_data *data);
+int		key_release(int keycode, t_data *data);
+void	player_move(t_data *data);
+
+
+
+
 #endif

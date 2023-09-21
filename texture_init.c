@@ -5,73 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/16 14:57:21 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/16 19:37:39 by yturgut          ###   ########.fr       */
+/*   Created: 2023/09/20 16:59:53 by yturgut           #+#    #+#             */
+/*   Updated: 2023/09/20 18:10:48 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_create_trgb(int t, int r, int g, int b)
+void	img_pix_put(t_img *img, int x, int y, int color)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+    char    *pixel;
+
+    pixel = img->data + (y * img->sizeline + x * (img->bpp / 8));
+    *(int *)pixel = color;
 }
 
-void create_background(t_data *data)
-{
-	int	i;
-	int	j;
 
-	i = 0;
-	j = 0;
-	int trgb = ft_create_trgb(0, data->floor.r, data->floor.g, data -> floor.b);
-	int trgb2 = ft_create_trgb(0, data->sky.r, data->sky.g, data -> sky.b);
-	while (j < HEIGHT / 2)
-	{
-		i = 0;
-		while (i < WIDTH)
-		{
-			mlx_pixel_put(data->mlx_ptr, data->mlx_window, i , j, trgb2);
-			i++;
-		}
-		j++;
-	}
+
+
+void	start_img(t_data *data)
+{
+	int	bpp;
+	int	sizeline;
+	int	endian;
+
+	data->img.image = mlx_new_image(data->mlx, 1920, 1080);
+	data->img.data = mlx_get_data_addr(data->img.image, &bpp,
+			&sizeline, &endian);
+	data->img.bpp = bpp;
+	data->img.sizeline = sizeline;
+	data->img.endian = endian;
 	
-	while (j < HEIGHT)
-	{
-		i = 0;
-		while (i < WIDTH)
-		{
-			mlx_pixel_put(data->mlx_ptr, data->mlx_window, i , j, trgb);
-			i++;
-		}
-		j++;
-	}
 }
 
-void	init_textures(t_data *data)
+
+
+void	open_textures(t_data *data)
 {
-	int i = 64;
-	data->north.image = mlx_xpm_file_to_image(data->mlx_ptr, data->north.path,
-			&i, &i);
-	data->south.image = mlx_xpm_file_to_image(data->mlx_ptr, data->south.path,
-			&i, &i);
-	data->west.image = mlx_xpm_file_to_image(data->mlx_ptr, data->west.path,
-			&i, &i);
-	data->east.image = mlx_xpm_file_to_image(data->mlx_ptr, data->east.path,
-			&i, &i);
+	data->north.image = mlx_xpm_file_to_image(data->mlx, "./textures/north.xpm",
+			&(data->north.w), &(data->north.h));
+	data->south.image = mlx_xpm_file_to_image(data->mlx, "./textures/south.xpm",
+			&(data->south.w), &(data->south.h));
+	data->west.image = mlx_xpm_file_to_image(data->mlx, "./textures/west.xpm",
+			&(data->west.w), &(data->west.h));
+	data->east.image = mlx_xpm_file_to_image(data->mlx, "./textures/east.xpm",
+			&(data->east.w), &(data->east.h));
 	if (!data->north.image || !data->south.image || !data->west.image
 		|| !data->east.image)
 		printf("Texture Error\n");
-}
-
-
-void create_wall(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_window, data->north.image, 50, 50);
+	data->north.data = mlx_get_data_addr(data->north.image, &(data->north.bpp),
+			&(data->north.sizeline), &(data->north.endian));
+	data->south.data = mlx_get_data_addr(data->south.image, &(data->south.bpp),
+			&(data->south.sizeline), &(data->south.endian));
+	data->west.data = mlx_get_data_addr(data->west.image, &(data->west.bpp),
+			&(data->west.sizeline), &(data->west.endian));
+	data->east.data = mlx_get_data_addr(data->east.image, &(data->east.bpp),
+			&(data->east.sizeline), &(data->east.endian));
 }

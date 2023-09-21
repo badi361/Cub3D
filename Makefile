@@ -1,6 +1,5 @@
 NAME = cub3d
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
 FREAMS = -framework OpenGL -framework AppKit
 
 MLX = ./mlx/libmlx.a
