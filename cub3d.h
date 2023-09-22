@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 18:38:03 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/21 16:01:15 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/22 20:15:01 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 # define CUB3D_H
 
 
+#define screenWidth 800
+#define screenHeight 600
 
-#define mapWidth 24
-#define mapHeight 24
-#define screenWidth 1920
-#define screenHeight 1080
-extern int worldMap[mapWidth][mapHeight];
+# define WIDTH 800
+# define HEIGHT 600
+
+extern int worldMap[24][24];
+
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -52,35 +54,85 @@ typedef struct s_img{
 	int		endian; 
 }	t_img;
 
-
+typedef struct color
+{
+	int	r;
+	int g;
+	int b;
+}	t_color;
 
 
 
 
 typedef struct s_data
 {
+	int mapy_size;
+	int cub_size;
+	int start_player_x;
+	int start_player_y;
+	int player_size;
+	int zero_size;
+	void	*mlx_ptr;
+	char **map; 
+	char *image_path;
+
+
+
+
 	void *mlx;
 	void *win;
+	int x;
+	int y;
 	int move[6];
 	double moveSpeed;
 	double rotSpeed;
 	double posX,posY;  //x and y start position
 	double dirX,dirY; //initial direction vector
 	double planeX,planeY; //the 2d raycaster version of camera plane
+	int drawStart;
+	int drawEnd;
+	int lineHeight;
+	int side;
+	double perpWallDist;
+	double rayDirX;
+	double rayDirY;
 	t_texture north;
 	t_texture east;
 	t_texture west;
 	t_texture south;
+	t_texture gun;
 	t_img img;
-	
+	t_color		floor;
+	t_color		sky;
+	int texX;
+	int texY;
+	double step;
+	double wallX;
 	int floorc;
 	int skyc;
+	double texPos;
+	int **worldMap;
+	
 
 } t_data;
 
 
+int		arg_control(int ac, char **av);
+int		get_map(char *av, t_data *data);
+void	get_map2(char *av, t_data *data);
+int		map_check(t_data *data);
+int		wall_check(t_data *data);
+int		wall_check_s_e(t_data *data);
+int		is_true(char c);
+int		player_check(t_data *data);
+int		size_control(t_data *data);
+int		path_helper(char a, char b, t_data *data);
+int		ft_exit(int key, t_data *data); //bak
+void	data_init(t_data *data);
+void	start_init(t_data *data);
 
-
+int		is_map_one(t_data *data);
+int		is_false(char c);
 void	start_img(t_data *data);
 void	open_textures(t_data *data);
 void	img_pix_put(t_img *img, int x, int y, int color);
@@ -94,6 +146,14 @@ void	rotate_left(t_data *data);
 int		key_press(int keycode, t_data *data);
 int		key_release(int keycode, t_data *data);
 void	player_move(t_data *data);
+int		ray_casting(t_data *data);
+int		create_trgb(int t, int r, int g, int b);
+void	put_vertical(t_data *data, int x, int start, int end, int color);
+unsigned int	get_pixel_in_tex(t_texture tex, int x, int y);
+void change_map(t_data *data);
+
+
+
 
 
 

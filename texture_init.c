@@ -6,21 +6,11 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:59:53 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/20 18:10:48 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/22 19:37:32 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	img_pix_put(t_img *img, int x, int y, int color)
-{
-    char    *pixel;
-
-    pixel = img->data + (y * img->sizeline + x * (img->bpp / 8));
-    *(int *)pixel = color;
-}
-
-
 
 
 void	start_img(t_data *data)
@@ -29,7 +19,7 @@ void	start_img(t_data *data)
 	int	sizeline;
 	int	endian;
 
-	data->img.image = mlx_new_image(data->mlx, 1920, 1080);
+	data->img.image = mlx_new_image(data->mlx, screenWidth, screenHeight);
 	data->img.data = mlx_get_data_addr(data->img.image, &bpp,
 			&sizeline, &endian);
 	data->img.bpp = bpp;
@@ -38,6 +28,13 @@ void	start_img(t_data *data)
 	
 }
 
+void	open_texture2(t_data *data)
+{
+	data->gun.image = mlx_xpm_file_to_image(data->mlx, "./textures/gun.xpm",
+			&(data->gun.w), &(data->gun.h));
+	if (!data->gun.image)
+		printf("Texture Error\n");
+}
 
 
 void	open_textures(t_data *data)
@@ -61,4 +58,7 @@ void	open_textures(t_data *data)
 			&(data->west.sizeline), &(data->west.endian));
 	data->east.data = mlx_get_data_addr(data->east.image, &(data->east.bpp),
 			&(data->east.sizeline), &(data->east.endian));
+	open_texture2(data);
 }
+
+

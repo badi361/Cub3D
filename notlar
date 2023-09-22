@@ -5,13 +5,11 @@ map e boşluklu F geliyorsa patlıyor
 mapteki tab lar mapi bozmuyor. yapan birine sor!
 renklerdeki sayılar 255i geçemez
 
-alttaki map geçiyor
--------
-	1 
-1N1
- 1
- -------
-
  tabları hata say // tabları sildim
 
  dont forget to destroy images
+
+ F   90 , 90 , 90
+ counter 6 
+
+ sol üstteki  xile kapanması
