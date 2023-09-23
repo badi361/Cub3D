@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:12:22 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/22 19:18:35 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/23 18:16:42 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ int	path_helper(char a, char b, t_data *data)
 		data->floor.r = ft_atoi(str[0]);
 		data->floor.g = ft_atoi(str[1]);
 		data->floor.b = ft_atoi(str[2]);
+		free(str[0]);
+		free(str[1]);
+		free(str[2]);
+		free(str);
 
 		if(data->floor.r < 0 || data->floor.r > 255)
 		{
@@ -102,6 +106,10 @@ int	path_helper(char a, char b, t_data *data)
 		data->sky.r = ft_atoi(str[0]);
 		data->sky.g = ft_atoi(str[1]);
 		data->sky.b = ft_atoi(str[2]);
+		free(str[0]);
+		free(str[1]);
+		free(str[2]);
+		free(str);
 
 		if(data->sky.r < 0 || data->sky.r > 255)
 		{
@@ -125,8 +133,6 @@ int	path_helper(char a, char b, t_data *data)
 
 int	x_close(int keycode, t_data *data)
 {
-	(void)data;
-	(void)keycode;
 	exit(0);
 	return (0);
 }

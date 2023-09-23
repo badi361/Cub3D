@@ -1,15 +1,9 @@
 makefile da wildcart yasak (*)
-son satırda enter atınca seg yiyor
 make clean mlxi silmiyor
 map e boşluklu F geliyorsa patlıyor
-mapteki tab lar mapi bozmuyor. yapan birine sor!
-renklerdeki sayılar 255i geçemez
+error hatalarını düzgünce yazdır
+parselda 6dan fazla gelirse çalışıyor
+arada seg yiyor çöz
+duvara çok yaklaşınca görüntü bozuluyor
 
- tabları hata say // tabları sildim
-
- dont forget to destroy images
-
- F   90 , 90 , 90
- counter 6 
-
- sol üstteki  xile kapanması
+*** maptable: count differs after rehashing; probably indicates a broken invariant: there are x and y such as isEqual(x, y) is TRUE but hash(x) != hash (y)

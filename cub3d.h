@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 18:38:03 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/22 20:15:01 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/23 17:38:21 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,11 @@
 # define CUB3D_H
 
 
-#define screenWidth 800
-#define screenHeight 600
+#define screenWidth 1920
+#define screenHeight 1080 // 350 730 840 859 
 
-# define WIDTH 800
-# define HEIGHT 600
-
-extern int worldMap[24][24];
-
+# define WIDTH screenWidth
+# define HEIGHT screenHeight
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -93,6 +90,7 @@ typedef struct s_data
 	int drawEnd;
 	int lineHeight;
 	int side;
+	char player_r;
 	double perpWallDist;
 	double rayDirX;
 	double rayDirY;
@@ -151,7 +149,10 @@ int		create_trgb(int t, int r, int g, int b);
 void	put_vertical(t_data *data, int x, int start, int end, int color);
 unsigned int	get_pixel_in_tex(t_texture tex, int x, int y);
 void change_map(t_data *data);
-
+void	fill_player_dir(t_data *data, double x, double y);
+void	player_first_rotate(t_data *data);
+int	x_close(int keycode, t_data *data);
+void free_game(t_data *data);
 
 
 

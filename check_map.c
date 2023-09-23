@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:56:28 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/22 19:28:31 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/23 18:00:23 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ int	map_check(t_data *data)
 			{
 				data -> start_player_x = i;
 				data -> start_player_y = j;
-				data ->posX  = i;
-				data -> posY = j;
+				data->player_r = data->map[j][i];
+				data ->posX  = (double)i;
+				data -> posY = (double)j;
 				i++;
 				data -> player_size++;
 			}
@@ -157,4 +158,36 @@ int size_control(t_data *data)
 
 
 	return (0);
+}
+
+void	player_first_rotate(t_data *data)
+{
+	if (data->player_r == 'N')
+	{
+		data->dirX = 0.0;
+		data->dirY = -1.0;
+		data->planeX = 0.66;
+		data->planeY = 0.0;
+	}
+	else if (data->player_r == 'S')
+	{
+		data->dirX = 0.0;
+		data->dirY = 1.0;
+		data->planeX = -0.66;
+		data->planeY = 0.0;
+	}
+	else if (data->player_r == 'W')
+	{
+		data->dirX = -1.0;
+		data->dirY = 0.0;
+		data->planeX = 0.0;
+		data->planeY = -0.66;
+	}
+		else if (data->player_r == 'E')
+	{
+		data->dirX = 1.0;
+		data->dirY = 0.0;
+		data->planeX = 0.0;
+		data->planeY = 0.66;
+	}
 }

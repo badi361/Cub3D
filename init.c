@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 19:10:07 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/22 21:05:16 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/23 18:03:42 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,15 @@ void start_init(t_data *data)
 	data->south.w = 64;
 	data->south.h = 64;
 
-	data->gun.w = 800;
-	data->gun.h = 600;
+	data->gun.w = 0;
+	data->gun.h = 0;
 
 	data->west.w = 64;
 	data->west.h = 64;
-	data-> moveSpeed = 0.25;
+	data-> moveSpeed = 0.01;
 	data-> rotSpeed = 0.1;
-
-	data -> dirX = -1;
-	data -> dirY = 0; //initial direction vector
-	data -> planeX = 0;
-	data-> planeY = 0.66; //the 2d raycaster version of camera plane
-
-	data-> floorc = create_trgb(0,90,90,90); // sil 
-	data-> skyc = create_trgb (0,173,216,240); // sil
+	data-> floorc = create_trgb(0, data->floor.r, data->floor.g, data->floor.b);
+	data-> skyc = create_trgb(0, data->sky.r, data->sky.g, data->sky.b);
 }
 
 void data_init(t_data *data)

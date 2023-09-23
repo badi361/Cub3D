@@ -6,34 +6,31 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 18:35:04 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/22 20:30:40 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/23 18:18:36 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 int	ft_game_loop(t_data *data)
-{
-	ray_casting(data);
+{ 
+	
+	
 	player_move(data);
+	ray_casting(data);
+	
 	mlx_put_image_to_window(data->mlx, data->win, data->img.image, 0, 0);
-	mlx_put_image_to_window(data->mlx, data->win, data->gun.image, 0 , 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->gun.image, 900, 430);
 	
 	return 0;
 }
  
 void start_game(t_data *data)
 {
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, screenWidth, screenHeight, "Cub3d");
-	start_init(data);
-
-	start_img(data);
-	open_textures(data);
-
+	
 	mlx_hook(data->win, 2, 0, key_press, data);
 	mlx_hook(data->win, 3, 0, key_release, data);
-	//	mlx_hook(data->img.window, 17, 1L << 2, x_close, data); //unutma
+	mlx_hook(data->win, 17, 1L << 2, x_close, data); //unutma
 	mlx_loop_hook(data->mlx, &ft_game_loop, data);
 	mlx_loop(data->mlx);
 }
@@ -71,9 +68,19 @@ int main(int ac, char **av)
 		exit(0);
 		before_game(data);
 		change_map(data);
+		data->mlx = mlx_init();
+		data->win = mlx_new_window(data->mlx, screenWidth, screenHeight, "Cub3d");
+		start_init(data);
+		start_img(data);
+
+		open_textures(data);
+		player_first_rotate(data);
 		start_game(data);
-		mlx_destroy_window(data->mlx, data->win);
 	}
+
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_image(data->mlx, data->img.image);
+
 	return 0;
 }
 

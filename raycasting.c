@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:07:11 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/22 20:27:24 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/23 15:48:15 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	calc_wall_x(t_data *data)
 int ray_casting(t_data *data)
 {
 	data -> x = -1;
-		while(data->x++ < screenWidth)
+	mlx_clear_window(data->mlx, data->win);
+		while(++(data->x) < screenWidth)
 		{
 			//calculate ray position and direction
 			double cameraX = 2 * data->x / (double)screenWidth - 1; //x-coordinate in camera space
@@ -77,9 +78,12 @@ int ray_casting(t_data *data)
 			  //x de ve y de 1 adım gitmek için gereken mesafe
 			double deltaDistX, deltaDistY;
 
-			if (data->rayDirX == 0) {
+			if (data->rayDirX == 0)
+			{
 				deltaDistX = 1e30;
-			} else {
+			}
+			else 
+			{
 				deltaDistX = fabs(1 / data->rayDirX);
 			}
 
@@ -95,7 +99,7 @@ int ray_casting(t_data *data)
 			int hit = 0; //was there a wall hit?
 			 //was a NS or a EW wall hit?
 
-					if (data->rayDirX < 0)
+			if (data->rayDirX < 0)
 			{
 				stepX = -1;
 				sideDistX = (data->posX - mapX) * deltaDistX;
@@ -132,7 +136,7 @@ int ray_casting(t_data *data)
 				data->side = 1;
 				}
 				//Check if ray has hit a wall
-				if (data->worldMap[mapX][mapY] > 0) 
+				if (data->worldMap[mapY][mapX] > 0) 
 					hit = 1;
 			}
 			if(data->side == 0)
@@ -141,24 +145,13 @@ int ray_casting(t_data *data)
 				data->perpWallDist = (sideDistY - deltaDistY);
 
 			data->lineHeight = (int)(screenHeight / data->perpWallDist);
-
-			data-> drawStart = -data->lineHeight / 2 + screenHeight / 2;
-			if(data->drawStart < 0)
-				data->drawStart = 0;
-			data-> drawEnd = data->lineHeight / 2 + screenHeight / 2;
-			if(data->drawEnd >= screenHeight)
-				data->drawEnd = screenHeight - 1;
-
-	
+			
 			calc_wall_x(data);
-			data-> texX = (int)data->wallX * (double)64;
 			data->texX = (int)(data->wallX * (double)64);
 			data->step = 1.0 * 64 / data->lineHeight;
 			data-> texPos = (data->drawStart - screenHeight / 2 + data->lineHeight / 2)
 			* data->step;
-
-			data->y = data->drawStart;
-			 data->y = 1;
+			data->y = 0;
 			while (data->y < screenHeight)
 			{
 				calc_texture_pixel_color(data);

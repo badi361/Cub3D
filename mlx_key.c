@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:41:23 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/21 16:01:49 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/23 18:06:52 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@ int key_press(int keycode, t_data *data)
 		data->move[3] = 1;
 	else if (keycode == 123)
 		data->move[4] = 1;
-	else if (keycode == 124)
+	else if (keycode == 124) // right
 		data->move[5] = 1;	
 	if (keycode == 53)
+	{	
+		free_game(data);
+		system("leaks cub3d");
 		exit(0);
+	}
 	return 0;
 }
 
