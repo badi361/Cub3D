@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_key.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:41:23 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/23 18:06:52 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/24 19:32:54 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int key_press(int keycode, t_data *data)
+int	key_press(int keycode, t_data *data)
 {
 	if (keycode == 13)
 		data->move[0] = 1;
@@ -24,18 +24,17 @@ int key_press(int keycode, t_data *data)
 		data->move[3] = 1;
 	else if (keycode == 123)
 		data->move[4] = 1;
-	else if (keycode == 124) // right
-		data->move[5] = 1;	
+	else if (keycode == 124)
+		data->move[5] = 1;
 	if (keycode == 53)
-	{	
+	{
 		free_game(data);
-		system("leaks cub3d");
 		exit(0);
 	}
-	return 0;
+	return (0);
 }
 
-int key_release(int keycode, t_data *data)
+int	key_release(int keycode, t_data *data)
 {
 	if (keycode == 13)
 		data->move[0] = 0;
@@ -48,6 +47,6 @@ int key_release(int keycode, t_data *data)
 	else if (keycode == 123)
 		data->move[4] = 0;
 	else if (keycode == 124)
-		data->move[5] = 0;	
-	return 0;
+		data->move[5] = 0;
+	return (0);
 }

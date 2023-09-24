@@ -6,7 +6,7 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:32:32 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/23 18:27:07 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/24 16:04:16 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,30 @@ void	free_tex_paths_2(t_data *data)
 		free(data->east.path);
 }
 
-void free_map2(t_data *data)
+void	free_map2(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = data->mapy_size - 1;
-	while (i >= 0) 
+	while (i >= 0)
 	{
-		free(data->worldMap[i]);
+		free(data->int_map[i]);
 		i--;
 	}
-	free(data->worldMap);
+	free(data->int_map);
 }
 
-void free_game(t_data *data)
-{	
+void	free_game(t_data *data)
+{
 	free_map2(data);
 	free_tex_paths_2(data);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_image(data->mlx, data->img.image);
+	mlx_destroy_image(data->mlx, data->gun.image);
+	mlx_destroy_image(data->mlx, data->north.image);
+	mlx_destroy_image(data->mlx, data->east.image);
+	mlx_destroy_image(data->mlx, data->west.image);
+	mlx_destroy_image(data->mlx, data->south.image);
+	free(data);
+	exit(0);
 }

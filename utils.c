@@ -3,136 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:12:22 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/23 18:16:42 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/24 21:47:26 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
 
-int is_true(char c)
+int	is_true(char c)
 {
-	if(c == ' ' || c == '\t' || c == '\n' || c == '\0')
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\0')
 		return (1);
 	return (0);
 }
 
-int is_false(char c)
+int	is_false(char c)
 {
-	if (c == '1' || c == 'O' || c == 'N' || c == 'E' || c == 'W' || c == 'S' || c == ' ' || c == '\t')
+	if (c == '1' || c == 'O' || c == 'N' || c == 'E'
+		|| c == 'W' || c == 'S' || c == ' ' || c == '\t')
 		return (1);
 	return (0);
 }
 
-int	path_helper(char a, char b, t_data *data)
+void	path_helper(char a, char b, t_data *data)
 {
-	int	i;
-	int flag;
+	int		i;
+	int		flag;
+	char	**str;
 
 	flag = 0;
 	i = 0;
-	char **str;
-	while ( data -> image_path[i] != '.' && data->image_path[i] != '\n')
+	while (data->image_path[i] != '.' && data->image_path[i] != '\n')
 		i++;
 	if (a == 'S' && b == 'O')
 		data->south.path = ft_strjoin(data->south.path, &data -> image_path[i]);
-	if (a == 'N' && b == 'O')
+	else if (a == 'N' && b == 'O')
 		data->north.path = ft_strjoin(data->north.path, &data -> image_path[i]);
-	if (a == 'W' && b == 'E')
+	else if (a == 'W' && b == 'E')
 		data->west.path = ft_strjoin(data->west.path, &data -> image_path[i]);
-	if (a == 'E' && b == 'A')
+	else if (a == 'E' && b == 'A')
 		data->east.path = ft_strjoin(data->east.path, &data -> image_path[i]);
-	if (a == 'F' && b == ' ')
-	{
-		i = 0;
-		while (data->image_path[i])
-		{
-			if (data->image_path[i] == ',')
-			{
-				if (ft_isdigit(data->image_path[++i]))
-					flag += 1;
-			}
-			if (flag == 2)
-				break ;
-			i++;
-		}
-		if (flag != 2) // hata yaz
-			return (1);
-		str = ft_split(&data->image_path[2], ',');
-		data->floor.r = ft_atoi(str[0]);
-		data->floor.g = ft_atoi(str[1]);
-		data->floor.b = ft_atoi(str[2]);
-		free(str[0]);
-		free(str[1]);
-		free(str[2]);
-		free(str);
-
-		if(data->floor.r < 0 || data->floor.r > 255)
-		{
-			printf("RGB Erorr\n");
-			return (1);
-		}
-		if(data->floor.g < 0 || data->floor.g > 255)
-		{
-			printf("RGB Erorr\n");
-			return (1);
-		}
-		if(data->floor.b < 0 || data->floor.b > 255)
-		{
-			printf("RGB Erorr\n");
-			return (1);
-		}
-	}
-	if (a == 'C' && b == ' ')
-	{
-		i = 0;
-		while (data->image_path[i])
-		{
-			if (data->image_path[i] == ',')
-			{
-				if (ft_isdigit(data->image_path[++i]))
-					flag += 1;
-			}
-			if (flag == 2)
-				break ;
-			i++;
-		}
-		if (flag != 2) // hata yaz
-			return (1);
-		str = ft_split(&data->image_path[2], ',');
-		data->sky.r = ft_atoi(str[0]);
-		data->sky.g = ft_atoi(str[1]);
-		data->sky.b = ft_atoi(str[2]);
-		free(str[0]);
-		free(str[1]);
-		free(str[2]);
-		free(str);
-
-		if(data->sky.r < 0 || data->sky.r > 255)
-		{
-			printf("RGB Erorr\n");
-			return (1);
-		}
-		if(data->sky.g < 0 || data->sky.g > 255)
-		{
-			printf("RGB Erorr\n");
-			return (1);
-		}
-		if(data->sky.b < 0 || data->sky.b > 255)
-		{
-			printf("RGB Erorr\n");
-			return (1);
-		}
-		return (3);
-	}
-	return (0);
+	else if (a == 'F' && b == ' ')
+		f_space_func(flag, str, data);
+	else if (a == 'C' && b == ' ')
+		c_space_func(flag, str, data);
+	else
+		ft_error_msg("ARGUMANT - 0 - ERROR");
+	data->arg_count += 1;
 }
 
 int	x_close(int keycode, t_data *data)
 {
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_image(data->mlx, data->img.image);
 	exit(0);
 	return (0);
+}
+
+void	f_space_func(int flag, char **str, t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (data->image_path[++i])
+	{
+		if (data->image_path[i] == ',')
+		{
+			i++;
+			while (data->image_path[i] == ' ' || data->image_path[i] == '\t')
+				i++;
+			if (ft_isdigit(data->image_path[i]))
+				flag += 1;
+		}
+		if (flag == 2)
+			break ;
+	}
+	if (flag != 2)
+		ft_error_msg("RGB - 0 - ERROR");
+	str = ft_split(&data->image_path[2], ',');
+	data->floor.r = ft_atoi(str[0]);
+	data->floor.g = ft_atoi(str[1]);
+	data->floor.b = ft_atoi(str[2]);
+	ft_free(str);
+	rgb_ctrl_2(data);
 }

@@ -6,42 +6,48 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:41:41 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/23 15:53:55 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/24 15:02:44 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void move_forward(t_data *data)
+void	move_forward(t_data *data)
 {
-	if(data->worldMap[(int)(data->posY)][(int)(data->posX + data->dirX * data->moveSpeed)] == 0) 
-		data->posX += data->dirX * data->moveSpeed;
-	if(data->worldMap[(int)(data->posY + data->dirY * data->moveSpeed)][(int)(data->posX)] == 0)
-		 data->posY += data->dirY * data->moveSpeed;
+	if (data->int_map[(int)(data->pos_y)]
+		[(int)(data->pos_x + data->dir_x * data->move_speed)] == 0)
+		data->pos_x += data->dir_x * data->move_speed;
+	if (data->int_map[(int)(data->pos_y + data->dir_y * data->move_speed)]
+		[(int)(data->pos_x)] == 0)
+		data->pos_y += data->dir_y * data->move_speed;
 }
 
-void move_back(t_data *data)
-{	
-	if(data->worldMap[(int)(data->posY)][(int)(data->posX - data->dirX * data->moveSpeed)] == 0) 
-		data->posX -= data->dirX * data->moveSpeed;
-	if(data->worldMap[(int)(data->posY - data->dirY * data->moveSpeed)][(int)(data->posX)] == 0)
-		data->posY -= data->dirY * data->moveSpeed;
+void	move_back(t_data *data)
+{
+	if (data->int_map[(int)(data->pos_y)]
+		[(int)(data->pos_x - data->dir_x * data->move_speed)] == 0)
+		data->pos_x -= data->dir_x * data->move_speed;
+	if (data->int_map[(int)(data->pos_y - data->dir_y * data->move_speed)]
+		[(int)(data->pos_x)] == 0)
+		data->pos_y -= data->dir_y * data->move_speed;
 }
 
-void move_right(t_data *data)
+void	move_right(t_data *data)
 {
-	
-	if(data->worldMap[(int)(data->posY)][(int)(data->posX + data->planeX * data->moveSpeed)] == 0) 
-		data->posX += data->planeX * data->moveSpeed;
-	if(data->worldMap[(int)(data->posY + data->planeY * data->moveSpeed)][(int)(data->posX)] == 0)
-		data->posY += data->planeY * data->moveSpeed;
+	if (data->int_map[(int)(data->pos_y)]
+		[(int)(data->pos_x + data->plane_x * data->move_speed)] == 0)
+		data->pos_x += data->plane_x * data->move_speed;
+	if (data->int_map[(int)(data->pos_y + data->plane_y * data->move_speed)]
+		[(int)(data->pos_x)] == 0)
+		data->pos_y += data->plane_y * data->move_speed;
 }
 
-void move_left(t_data *data)
+void	move_left(t_data *data)
 {
-
-	if(data->worldMap[(int)(data->posY)][(int)(data->posX - (data->planeX * data->moveSpeed))] == 0) 
-		data->posX -= data->planeX * data->moveSpeed;
-	if(data->worldMap[(int)(data->posY - data->planeY * data->moveSpeed)][(int)(data->posX)] == 0)
-		data->posY -= data->planeY * data->moveSpeed;
+	if (data->int_map[(int)(data->pos_y)]
+		[(int)(data->pos_x - (data->plane_x * data->move_speed))] == 0)
+		data->pos_x -= data->plane_x * data->move_speed;
+	if (data->int_map[(int)(data->pos_y - data->plane_y * data->move_speed)]
+		[(int)(data->pos_x)] == 0)
+		data->pos_y -= data->plane_y * data->move_speed;
 }

@@ -6,36 +6,23 @@
 /*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 19:24:11 by bkarlida          #+#    #+#             */
-/*   Updated: 2023/09/22 16:37:21 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/24 15:07:57 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 int	create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-
-void put_vertical(t_data *data, int x, int start, int end, int color)
-{
-
-	while (start < end)
-	{
-		img_pix_put(&data->img, x, start, color);
-		start++;
-	}
-	
-}
-
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
-    char    *pixel;
+	char	*pixel;
 
-    pixel = img->data + (y * img->sizeline + x * (img->bpp / 8));
-    *(int *)pixel = color;
+	pixel = img->data + (y * img->sizeline + x * (img->bpp / 8));
+	*(int *)pixel = color;
 }
 
 unsigned int	get_pixel_in_tex(t_texture tex, int x, int y)

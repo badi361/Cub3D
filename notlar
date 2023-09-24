@@ -5,5 +5,5 @@ error hatalarını düzgünce yazdır
 parselda 6dan fazla gelirse çalışıyor
 arada seg yiyor çöz
 duvara çok yaklaşınca görüntü bozuluyor
-
+wall wextra werror yok makefile da
 *** maptable: count differs after rehashing; probably indicates a broken invariant: there are x and y such as isEqual(x, y) is TRUE but hash(x) != hash (y)

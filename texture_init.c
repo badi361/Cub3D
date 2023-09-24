@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   texture_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:59:53 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/22 19:37:32 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/24 19:51:36 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 void	start_img(t_data *data)
 {
@@ -19,13 +18,12 @@ void	start_img(t_data *data)
 	int	sizeline;
 	int	endian;
 
-	data->img.image = mlx_new_image(data->mlx, screenWidth, screenHeight);
+	data->img.image = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->img.data = mlx_get_data_addr(data->img.image, &bpp,
 			&sizeline, &endian);
 	data->img.bpp = bpp;
 	data->img.sizeline = sizeline;
 	data->img.endian = endian;
-	
 }
 
 void	open_texture2(t_data *data)
@@ -35,7 +33,6 @@ void	open_texture2(t_data *data)
 	if (!data->gun.image)
 		printf("Texture Error\n");
 }
-
 
 void	open_textures(t_data *data)
 {
@@ -60,5 +57,3 @@ void	open_textures(t_data *data)
 			&(data->east.sizeline), &(data->east.endian));
 	open_texture2(data);
 }
-
-

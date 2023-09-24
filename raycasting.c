@@ -3,160 +3,121 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 15:07:11 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/23 15:48:15 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/24 20:13:23 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-void	calc_texture_pixel_color(t_data *data)
-{
-	int	color;
-
-	if (data->y < data->drawStart)
-		img_pix_put(&data->img, data->x, data->y, data->skyc);
-	else if (data->y >= data->drawStart && data->y <= data->drawEnd)
-	{
-		data->texY = (int)data->texPos & (64 - 1);
-		data->texPos += data->step;
-		if (data->side == 0 && data->rayDirX > 0)
-			color = get_pixel_in_tex(data->north, data->texX, data->texY);
-		else if (data->side == 0 && data->rayDirX < 0)
-			color = get_pixel_in_tex(data->south, data->texX, data->texY);
-		else if (data->side == 1 && data->rayDirY > 0)
-			color = get_pixel_in_tex(data->west, data->texX, data->texY);
-		else if (data->side == 1 && data->rayDirY < 0)
-			color = get_pixel_in_tex(data->east, data->texX, data->texY);
-		img_pix_put(&data->img, data->x, data->y, color);
-	}
-	else
-		img_pix_put(&data->img, data->x, data->y, data->floorc);
-}
-
-
 void	calc_wall_x(t_data *data)
 {
-	data->drawStart = -data->lineHeight / 2 + screenHeight / 2;
-	if (data->drawStart < 0)
-		data->drawStart = 0;
-	data->drawEnd = data->lineHeight / 2 + screenHeight / 2;
-	if (data->drawEnd >= screenHeight)
-		data->drawEnd = screenHeight - 1;
+	data->draw_start = -data->line_height / 2 + SCREEN_HEIGHT / 2;
+	if (data->draw_start < 0)
+		data->draw_start = 0;
+	data->draw_end = data->line_height / 2 + SCREEN_HEIGHT / 2;
+	if (data->draw_end >= SCREEN_HEIGHT)
+		data->draw_end = SCREEN_HEIGHT - 1;
 	if (data->side == 0)
-		data->wallX = data->posY + data->perpWallDist * data->rayDirY;
+		data->wall_x = data->pos_y + data->perp_wall_dist * data->raydir_y;
 	else
-		data->wallX = data->posX + data->perpWallDist * data->rayDirX;
-	data->wallX -= floor(data->wallX);
+		data->wall_x = data->pos_x + data->perp_wall_dist * data->raydir_x;
+	data->wall_x -= floor(data->wall_x);
 }
 
-
-
-
-
-int ray_casting(t_data *data)
+void	ray_casting_2(t_data *data)
 {
-	data -> x = -1;
-	mlx_clear_window(data->mlx, data->win);
-		while(++(data->x) < screenWidth)
+	double	camera_x;
+
+	camera_x = 2 * data->x / (double)SCREEN_WIDTH - 1;
+	data->raydir_x = data->dir_x + data->plane_x * camera_x;
+	data->raydir_y = data->dir_y + data->plane_y * camera_x;
+	data->map_x = (int)data->pos_x;
+	data->map_y = (int)data->pos_y;
+	if (data->raydir_x == 0)
+		data->delta_dist_x = 1e30;
+	else
+		data->delta_dist_x = fabs(1 / data->raydir_x);
+	if (data->raydir_y == 0)
+		data->delta_dist_y = 1e30;
+	else
+		data->delta_dist_y = fabs(1 / data->raydir_y);
+	data->hit = 0;
+}
+
+void	ray_casting_3(t_data *data)
+{
+	if (data->raydir_x < 0)
+	{
+		data->step_x = -1;
+		data->side_dist_x = (data->pos_x - data->map_x) * data->delta_dist_x;
+	}
+	else
+	{
+		data->step_x = 1;
+		data->side_dist_x = (data->map_x + 1.0 - data->pos_x)
+			* data->delta_dist_x;
+	}
+	if (data->raydir_y < 0)
+	{
+		data->step_y = -1;
+		data->side_dist_y = (data->pos_y - data->map_y) * data->delta_dist_y;
+	}
+	else
+	{
+		data->step_y = 1;
+		data->side_dist_y = (data->map_y + 1.0 - data->pos_y)
+			* data->delta_dist_y;
+	}
+}
+
+void	ray_casting_4(t_data *data)
+{
+	while (data->hit == 0)
+	{
+		if (data->side_dist_x < data->side_dist_y)
 		{
-			//calculate ray position and direction
-			double cameraX = 2 * data->x / (double)screenWidth - 1; //x-coordinate in camera space
-			data->rayDirX = data->dirX + data->planeX * cameraX;
-			data->rayDirY = data->dirY + data->planeY * cameraX;
-
-			//mapin hangi karesinde olduğumuz
-      		int mapX = (int)data->posX;
-     		int mapY = (int)data->posY;
-			  //ilk x ve y ye dokunması için gereken mesafe
-			double sideDistX;
-      		double sideDistY;
-
-			  //x de ve y de 1 adım gitmek için gereken mesafe
-			double deltaDistX, deltaDistY;
-
-			if (data->rayDirX == 0)
-			{
-				deltaDistX = 1e30;
-			}
-			else 
-			{
-				deltaDistX = fabs(1 / data->rayDirX);
-			}
-
-			if (data->rayDirY == 0) {
-				deltaDistY = 1e30;
-			} else {
-				deltaDistY = fabs(1 / data->rayDirY);
-			}
-			//what direction to step in x or y-direction (either +1 or -1)
-			int stepX;
-			int stepY;
-
-			int hit = 0; //was there a wall hit?
-			 //was a NS or a EW wall hit?
-
-			if (data->rayDirX < 0)
-			{
-				stepX = -1;
-				sideDistX = (data->posX - mapX) * deltaDistX;
-			}
-			else
-			{
-				stepX = 1;
-				sideDistX = (mapX + 1.0 - data->posX) * deltaDistX;
-			}
-			if (data->rayDirY < 0)
-			{
-				stepY = -1;
-				sideDistY = (data->posY - mapY) * deltaDistY;
-			}
-			else
-			{
-				stepY = 1;
-				sideDistY = (mapY + 1.0 - data->posY) * deltaDistY;
-			}
-
-			while (hit == 0)
-			{
-				//jump to next map square, either in x-direction, or in y-direction
-				if (sideDistX < sideDistY)
-				{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				data->side = 0;
-				}
-				else
-				{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				data->side = 1;
-				}
-				//Check if ray has hit a wall
-				if (data->worldMap[mapY][mapX] > 0) 
-					hit = 1;
-			}
-			if(data->side == 0)
-				data->perpWallDist = (sideDistX - deltaDistX);
-			else
-				data->perpWallDist = (sideDistY - deltaDistY);
-
-			data->lineHeight = (int)(screenHeight / data->perpWallDist);
-			
-			calc_wall_x(data);
-			data->texX = (int)(data->wallX * (double)64);
-			data->step = 1.0 * 64 / data->lineHeight;
-			data-> texPos = (data->drawStart - screenHeight / 2 + data->lineHeight / 2)
-			* data->step;
-			data->y = 0;
-			while (data->y < screenHeight)
-			{
-				calc_texture_pixel_color(data);
-				data->y++;
-			}
+			data->side_dist_x += data->delta_dist_x;
+			data->map_x += data->step_x;
+			data->side = 0;
 		}
-		return 0;
+		else
+		{
+			data->side_dist_y += data->delta_dist_y;
+			data->map_y += data->step_y;
+			data->side = 1;
+		}
+		if (data->int_map[data->map_y][data->map_x] > 0)
+			data->hit = 1;
+	}
+	if (data->side == 0)
+		data->perp_wall_dist = (data->side_dist_x - data->delta_dist_x);
+	else
+		data->perp_wall_dist = (data->side_dist_y - data->delta_dist_y);
+	data->line_height = (int)(SCREEN_HEIGHT / data->perp_wall_dist);
+}
+
+int	ray_casting(t_data *data)
+{
+	data->x = -1;
+	while (++(data->x) < SCREEN_WIDTH)
+	{
+		ray_casting_2(data);
+		ray_casting_3(data);
+		ray_casting_4(data);
+		calc_wall_x(data);
+		data->tex_x = (int)(data->wall_x * (double)64);
+		data->step = 1.0 * 64 / data->line_height;
+		data->tex_pos = (data->draw_start - SCREEN_HEIGHT / 2
+				+ data->line_height / 2) * data->step;
+		data->y = 0;
+		while (data->y < SCREEN_HEIGHT)
+		{
+			calc_texture_pixel_color(data);
+			data->y++;
+		}
+	}
+	return (0);
 }
