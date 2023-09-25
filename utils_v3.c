@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 21:47:15 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/24 21:50:40 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/25 17:47:13 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*ft_strjoin3(char const *s1, char const *s2)
 	while (s2[k])
 		str[i++] = s2[k++];
 	str[i] = '\0';
+	free((void *)s1);
 	return (str);
 }
 
@@ -57,6 +58,44 @@ void	ft_get_map_helper(t_data *data)
 		k[j] = '\0';
 		free(data->map[i]);
 		data->map[i] = ft_strdup(k);
+		free(k);
 		i++;
 	}
+}
+
+void	get_map_helper_2(t_data *data, int fd)
+{
+	data->image_path = get_next_line(fd);
+	if (data->image_path == NULL)
+		ft_error_msg("INVALID MAP Error\n");
+	while (data->image_path[0] == '\n')
+	{
+		free(data->image_path);
+		data->image_path = get_next_line(fd);
+		if (data->image_path == NULL)
+			ft_error_msg("INVALID MAP Error\n");
+	}
+	last_colomn_ctrl(data, fd);
+}
+
+void	last_colomn_ctrl(t_data *data, int fd)
+{
+	char	*str;
+
+	str = NULL;
+	while (data->image_path)
+	{
+		data->mapy_size++;
+		str = ft_strjoin3(str, data->image_path);
+		free(data->image_path);
+		data->image_path = get_next_line(fd);
+		if (data->image_path == NULL)
+			break ;
+		if (data->image_path[0] == '\n')
+			ft_error_msg("Map division Error");
+	}
+	data->map = ft_split(str, '\n');
+	free(str);
+	ft_get_map_helper(data);
+	close(fd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:56:28 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/24 19:48:01 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/25 16:32:44 by yturgut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	map_check(t_data *data)
 	j = -1;
 	while (data->map[++j])
 	{
-		i = -1;
-		while (data->map[j][++i])
+		i = 0;
+		while (data->map[j][i])
 		{
 			if (data->map[j][i] == ' ' || data->map[j][i] == '1'
 				|| data->map[j][i] == '0' || data->map[j][i] == '\n')
@@ -33,7 +33,7 @@ void	map_check(t_data *data)
 				|| data->map[j][i] == 'W' || data->map[j][i] == 'S')
 				ft_map_check_helper(i, j, data);
 			else
-				ft_error_msg ("INVALİD MAP ERROR");
+				ft_error_msg ("INVALID MAP Error");
 			i++;
 		}
 	}
@@ -55,7 +55,7 @@ int	wall_check(t_data *data)
 				if (is_true(data->map[j][i + 1]) || is_true(data->map[j][i - 1])
 					|| is_true(data->map[j + 1][i])
 					|| is_true(data->map[j - 1][i]))
-					ft_error_msg("WALL - 0 - ERROR");
+					ft_error_msg("WALL - 0 - Error");
 			}
 			i++;
 		}
@@ -73,18 +73,16 @@ int	wall_check_s_e(t_data *data)
 	{
 		if (data->map[0][i] == '0')
 		{
-			printf("WALL ERROR5\n");
+			printf("WALL Error5\n");
 			return (1);
 		}
 		i++;
 	}
 	i = 0;
-	if (data->map[data ->mapy_size - 1] == NULL)
-		data ->mapy_size--;
-	while (data->map[data ->mapy_size - 1][i])
+	while (data->map[data->mapy_size - 1][i])
 	{
 		if (data->map[data ->mapy_size - 1][i] == '0')
-			ft_error_msg("WALL - 6 - ERROR");
+			ft_error_msg("WALL - 6 - Error");
 		i++;
 	}
 	return (0);
@@ -98,22 +96,22 @@ int	player_check(t_data *data)
 	x = data ->start_player_x;
 	y = data->start_player_y;
 	if (y == data->mapy_size - 1 || y == 0)
-		ft_error_msg("PLAYER - 1 - ERROR");
+		ft_error_msg("PLAYER - 1 - Error");
 	if (x == 0)
-		ft_error_msg("PLAYER - 2 - ERROR");
+		ft_error_msg("PLAYER - 2 - Error");
 	if (is_true(data->map[y][x - 1]) || is_true(data->map[y][x + 1])
 		|| is_true(data->map[y + 1][x]) || is_true(data->map[y - 1][x]))
-		ft_error_msg("PLAYER - 3 - ERROR");
+		ft_error_msg("PLAYER - 3 - Error");
 	return (0);
 }
 
 int	size_control(t_data *data)
 {
 	if (data ->mapy_size < 3)
-		ft_error_msg("MAP SİZE ERROR");
+		ft_error_msg("MAP SIZE Error");
 	if (data -> player_size != 1)
-		ft_error_msg("INVALID PLAYER ERROR");
+		ft_error_msg("INVALID PLAYER Error");
 	if (data ->zero_size == 0 && data -> player_size == 0)
-		ft_error_msg("MAP SİZE IS 0 ERROR");
+		ft_error_msg("MAP SIZE IS 0 Error");
 	return (0);
 }

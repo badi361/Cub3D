@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 18:35:04 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/24 19:51:36 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/25 18:28:37 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,13 @@ int	main(int ac, char **av)
 			exit(0);
 		before_game(data);
 		if (change_map_malloc(data))
-			ft_error_msg("ERROR");
+			ft_error_msg("Error");
 		if (change_map(data))
 			exit(0);
 		player_first_rotate(data);
 		start_game(data);
 	}
+	else
+		ft_error_msg("ac error");
 	return (0);
 }

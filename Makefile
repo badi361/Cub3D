@@ -1,37 +1,58 @@
-NAME = cub3d
-CC = gcc
-FREAMS = -framework OpenGL -framework AppKit
+NAME		= cub3d
 
-MLX = ./mlx/libmlx.a
-LIBFT = ./libft/libft.a
-GNL = ./get_next_line/get_next_line.a
+LBFT		= libft/libft.a
 
-all: $(NAME)
+GNL			= get_next_line/get_next_line.a
 
-$(NAME): *.o $(MLX) $(LIBFT) $(GNL)
-	$(CC) $(FLAGS) -o $(NAME) *.o $(MLX) $(LIBFT) $(GNL) $(FREAMS)
+MLX			= mlx/libmlx.a
 
-*.o: *.c
-	$(CC) $(FLAGS) -c *.c
+SRCS        :=      change_map.c \
+					check_map.c \
+					check_map_2.c \
+					destroy_game.c \
+					get_map.c \
+					get_next_line/get_next_line.c \
+					get_next_line/get_next_line_utils.c \
+					init.c \
+					main.c \
+					map_control.c \
+					mlx_key.c \
+					player_move.c \
+					player_move_2.c \
+					raycasting.c \
+					raycasting_2.c \
+					texture_init.c \
+					textures_to_pixel.c \
+					utils.c \
+					utils_v2.c \
+					utils_v3.c \
 
-$(MLX):
-	@make -C ./mlx
+CC			= gcc
 
-$(LIBFT):
-	@make -C ./libft
+FLAGS		= -Wall -Wextra -Werror -framework OpenGL -framework AppKit
+
+all : $(NAME)
+
+$(NAME)	: $(LBFT) $(GNL) $(MLX) $(SRCS)
+		@$(CC) $(SRCS) $(MLX) $(LBFT) $(FLAGS) $(GNL) -o $(NAME)
+
+$(LBFT):
+		@make -C libft
 
 $(GNL):
-	@make -C ./get_next_line
+		@make -C get_next_line
+	
+$(MLX):
+		@make -C mlx
 
-clean:
-	rm -f *.o
-	@make clean -C ./mlx
-	@make clean -C ./libft
-	@make clean -C ./get_next_line
+clean :
+		@rm -rf $(NAME)
+		@make fclean -C libft
+		@make fclean -C get_next_line
+		@make clean -C mlx
 
-fclean: clean
-	rm -f cub3d
-	@make fclean -C ./libft
-	@make fclean -C ./get_next_line
+fclean : clean
 
-re:fclean all
+re : clean all
+
+.PHONY : all clean fclean re

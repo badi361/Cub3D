@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 18:38:03 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/24 21:46:52 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/25 21:42:53 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_data
 	double		tex_pos;
 	int			**int_map;
 	int			arg_count;
+	int			flager;
 }	t_data;
 
 int				arg_control(int ac, char **av);
@@ -160,4 +161,6 @@ void			player_rotate_helper(t_data *data);
 int				change_map_malloc(t_data *data);
 char			*ft_strjoin3(char const *s1, char const *s2);
 void			ft_get_map_helper(t_data *data);
+void			get_map_helper_2(t_data *data, int fd);
+void			last_colomn_ctrl(t_data *data, int fd);
 #endif

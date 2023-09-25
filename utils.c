@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:12:22 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/24 21:47:26 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/25 21:48:47 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ void	path_helper(char a, char b, t_data *data)
 	int		flag;
 	char	**str;
 
+	str = NULL;
 	flag = 0;
-	i = 0;
+	i = data->flager;
 	while (data->image_path[i] != '.' && data->image_path[i] != '\n')
 		i++;
 	if (a == 'S' && b == 'O')
@@ -50,14 +51,14 @@ void	path_helper(char a, char b, t_data *data)
 	else if (a == 'C' && b == ' ')
 		c_space_func(flag, str, data);
 	else
-		ft_error_msg("ARGUMANT - 0 - ERROR");
+		ft_error_msg("ARGUMANT - 0 - Error");
 	data->arg_count += 1;
 }
 
 int	x_close(int keycode, t_data *data)
 {
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_image(data->mlx, data->img.image);
+	(void)keycode;
+	(void)data;
 	exit(0);
 	return (0);
 }
@@ -65,23 +66,28 @@ int	x_close(int keycode, t_data *data)
 void	f_space_func(int flag, char **str, t_data *data)
 {
 	int	i;
+	int	flag2;
 
-	i = -1;
+	flag2 = 0;
+	i = data->flager + 1;
+	while (data->image_path[i] == ' ')
+		i++;
+	if (data->image_path[i] == ',')
+		ft_error_msg("',' Error");
 	while (data->image_path[++i])
 	{
 		if (data->image_path[i] == ',')
 		{
+			flag2 += 1;
 			i++;
 			while (data->image_path[i] == ' ' || data->image_path[i] == '\t')
 				i++;
 			if (ft_isdigit(data->image_path[i]))
 				flag += 1;
 		}
-		if (flag == 2)
-			break ;
 	}
-	if (flag != 2)
-		ft_error_msg("RGB - 0 - ERROR");
+	if (flag != 2 || flag2 != 2)
+		ft_error_msg("RGB - 0 - Error");
 	str = ft_split(&data->image_path[2], ',');
 	data->floor.r = ft_atoi(str[0]);
 	data->floor.g = ft_atoi(str[1]);

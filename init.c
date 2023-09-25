@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 19:10:07 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/24 21:48:18 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/25 21:43:10 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 
 void	start_init(t_data *data)
 {
-	data->north.w = 64;
-	data->north.h = 64;
-	data->east.w = 64;
-	data->east.h = 64;
-	data->south.w = 64;
-	data->south.h = 64;
-	data->gun.w = 0;
-	data->gun.h = 0;
-	data->west.w = 64;
-	data->west.h = 64;
 	data->move_speed = 0.25;
 	data->rot_speed = 0.1;
 	data->floorc = create_trgb(0, data->floor.r, data->floor.g, data->floor.b);
@@ -53,4 +43,5 @@ void	data_init(t_data *data)
 	data->sky.g = 0;
 	data->sky.b = 0;
 	data->arg_count = 0;
+	data->flager = 0;
 }
