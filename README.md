@@ -24,8 +24,8 @@ $ Minilibx for graphics
 
 
 # Features
-$ Raycasting to render 3D environments
-$ Texture mapping
-$ Collision detection
+- Raycasting to render 3D environments
+- Texture mapping
+- Collision detection
 $ Dynamic lighting
 
