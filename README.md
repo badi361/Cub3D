@@ -4,23 +4,23 @@ This is a raycasting project built in C using the Minilibx library. It renders a
 
 # Installation
 # Clone this repository
-$ git clone https://github.com/badi361/Cub3d
+- git clone https://github.com/badi361/Cub3d
 
 # Compile all the files
-$ make
+- make
 
 # Run the program
-$ ./cub3D maps/map1.cub
+- ./cub3D maps/map1.cub
 
 
 # How to Play
-$ Use the WASD keys to move around
-$ The arrow keys control the direction you are facing
+- Use the WASD keys to move around
+- The arrow keys control the direction you are facing
 
 
 # Technologies Used
-$ C
-$ Minilibx for graphics
+- C
+- Minilibx for graphics
 
 
 # Features
