@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 19:10:07 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/25 21:43:10 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/29 16:18:54 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,6 @@ void	data_init(t_data *data)
 	data->sky.b = 0;
 	data->arg_count = 0;
 	data->flager = 0;
+	data->so_flag = 0;
+	data->no_flag = 0;
 }

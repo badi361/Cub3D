@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 18:38:03 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/25 21:42:53 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/29 17:17:51 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,15 @@ typedef struct s_data
 	int			**int_map;
 	int			arg_count;
 	int			flager;
+	char		a_char;
+	char		b_char;
+	int			so_flag;
+	int			no_flag;
+	int			we_flag;
+	int			ea_flag;
+	int			f_flag;
+	int			c_flag;
+
 }	t_data;
 
 int				arg_control(int ac, char **av);
@@ -163,4 +172,16 @@ char			*ft_strjoin3(char const *s1, char const *s2);
 void			ft_get_map_helper(t_data *data);
 void			get_map_helper_2(t_data *data, int fd);
 void			last_colomn_ctrl(t_data *data, int fd);
+void			flag_ctrl(int flag, int flag2);
+void			get_rgb(char **str, t_data *data);
+void			get_rgb_2(char **str, t_data *data);
+void			path_helper_v2(int flag, t_data *data, int i);
+void			is_map_one2(t_data *data);
+void			f_ctrl(t_data *data, int flag, char **str);
+void			c_ctrl(t_data *data, int flag, char **str);
+void			get_so(t_data *data, int i);
+void			get_no(t_data *data, int i);
+void			get_we(t_data *data, int i);
+void			get_ea(t_data *data, int i);
+
 #endif

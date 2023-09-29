@@ -1,4 +1,4 @@
-NAME		= cub3d
+NAME		= cub3D
 
 LBFT		= libft/libft.a
 
@@ -26,6 +26,8 @@ SRCS        :=      change_map.c \
 					utils.c \
 					utils_v2.c \
 					utils_v3.c \
+					utils_v4.c \
+					utils_v5.c \
 
 CC			= gcc
 

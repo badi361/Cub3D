@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 21:47:15 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/25 17:47:13 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/28 16:00:29 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ void	get_map_helper_2(t_data *data, int fd)
 {
 	data->image_path = get_next_line(fd);
 	if (data->image_path == NULL)
-		ft_error_msg("INVALID MAP Error\n");
+		ft_error_msg("INVALID MAP Error");
 	while (data->image_path[0] == '\n')
 	{
 		free(data->image_path);
 		data->image_path = get_next_line(fd);
 		if (data->image_path == NULL)
-			ft_error_msg("INVALID MAP Error\n");
+			ft_error_msg("INVALID MAP Error");
 	}
 	last_colomn_ctrl(data, fd);
 }

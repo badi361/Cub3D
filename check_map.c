@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:56:28 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/25 16:32:44 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/29 15:25:30 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	wall_check_s_e(t_data *data)
 	{
 		if (data->map[0][i] == '0')
 		{
-			printf("WALL Error5\n");
+			printf("WALL - 5 - Error\n");
 			return (1);
 		}
 		i++;

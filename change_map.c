@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 19:47:14 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/24 19:39:37 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/29 17:31:10 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,41 @@ int	change_map(t_data *data)
 	}
 	free(data->map);
 	return (0);
+}
+
+void	get_rgb_2(char **str, t_data *data)
+{
+	str = ft_split(&data->image_path[data->flager], ',');
+	data->floor.r = ft_atoi(str[0]);
+	data->floor.g = ft_atoi(str[1]);
+	data->floor.b = ft_atoi(str[2]);
+	ft_free(str);
+	rgb_ctrl_2(data);
+}
+
+void	path_helper_v2(int flag, t_data *data, int i)
+{
+	char	a;
+	char	b;
+
+	a = data->a_char;
+	b = data->b_char;
+	while (data->image_path[i] != '.' && data->image_path[i] != '\n')
+	{
+		if (data->image_path[i] != ' ')
+			ft_error_msg("Direction Error");
+		i++;
+		flag = 1;
+	}
+	if (a == 'S' && b == 'O' && flag == 1)
+		get_so(data, i);
+	else if (a == 'N' && b == 'O' && flag == 1)
+		get_no(data, i);
+	else if (a == 'W' && b == 'E' && flag == 1)
+		get_we(data, i);
+	else if (a == 'E' && b == 'A' && flag == 1)
+		get_ea(data, i);
+	else
+		ft_error_msg("ARGUMANT - 0 - Error");
+	data->arg_count += 1;
 }

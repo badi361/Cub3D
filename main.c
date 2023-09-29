@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 18:35:04 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/25 18:28:37 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/29 16:40:31 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	main(int ac, char **av)
 	if (ac == 2)
 	{
 		data = malloc(sizeof(t_data));
+		data->we_flag = 0;
+		data->ea_flag = 0;
 		data_init(data);
 		if (arg_control(ac, av))
 			exit(0);

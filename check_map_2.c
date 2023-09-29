@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:48:19 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/25 13:56:18 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/28 18:20:18 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,20 @@ void	player_rotate_helper(t_data *data)
 		data->plane_x = 0.0;
 		data->plane_y = 0.66;
 	}
+}
+
+void	flag_ctrl(int flag, int flag2)
+{
+	if (flag != 2 || flag2 != 2)
+		ft_error_msg("RGB - 4 - Error");
+}
+
+void	get_rgb(char **str, t_data *data)
+{
+	str = ft_split(&data->image_path[data->flager], ',');
+	data->sky.r = ft_atoi(str[0]);
+	data->sky.g = ft_atoi(str[1]);
+	data->sky.b = ft_atoi(str[2]);
+	ft_free(str);
+	rgb_ctrl(data);
 }

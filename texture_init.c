@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yturgut <yturgut@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 16:59:53 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/25 20:36:30 by yturgut          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:27:58 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	open_texture2(t_data *data)
 	data->gun.image = mlx_xpm_file_to_image(data->mlx, "./textures/gun.xpm",
 			&(data->gun.w), &(data->gun.h));
 	if (!data->gun.image)
-		printf("Texture Error\n");
+	{
+		printf("Texture gun Error\n");
+		exit(0);
+	}
 }
 
 void	open_textures(t_data *data)

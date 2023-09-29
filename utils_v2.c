@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 20:15:17 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/25 21:46:12 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/28 18:16:39 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ void	c_space_func(int flag, char **str, t_data *data)
 	int	i;
 	int	flag2;
 
-	i = data->flager + 1;
+	i = data->flager + 2;
 	flag2 = 0;
 	while (data->image_path[i] == ' ')
 		i++;
+	data->flager = i;
 	if (data->image_path[i] == ',')
 		ft_error_msg("',' Error");
 	while (data->image_path[++i])
@@ -54,14 +55,8 @@ void	c_space_func(int flag, char **str, t_data *data)
 				flag += 1;
 		}
 	}
-	if (flag != 2 || flag2 != 2)
-		ft_error_msg("RGB - 4 - Error");
-	str = ft_split(&data->image_path[2], ',');
-	data->sky.r = ft_atoi(str[0]);
-	data->sky.g = ft_atoi(str[1]);
-	data->sky.b = ft_atoi(str[2]);
-	ft_free(str);
-	rgb_ctrl(data);
+	flag_ctrl(flag, flag2);
+	get_rgb(str, data);
 }
 
 void	rgb_ctrl(t_data *data)

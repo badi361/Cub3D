@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 19:12:22 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/25 21:48:47 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/29 17:11:35 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,20 @@ void	path_helper(char a, char b, t_data *data)
 
 	str = NULL;
 	flag = 0;
-	i = data->flager;
-	while (data->image_path[i] != '.' && data->image_path[i] != '\n')
-		i++;
-	if (a == 'S' && b == 'O')
-		data->south.path = ft_strjoin(data->south.path, &data -> image_path[i]);
-	else if (a == 'N' && b == 'O')
-		data->north.path = ft_strjoin(data->north.path, &data -> image_path[i]);
-	else if (a == 'W' && b == 'E')
-		data->west.path = ft_strjoin(data->west.path, &data -> image_path[i]);
-	else if (a == 'E' && b == 'A')
-		data->east.path = ft_strjoin(data->east.path, &data -> image_path[i]);
-	else if (a == 'F' && b == ' ')
-		f_space_func(flag, str, data);
+	i = data->flager + 2;
+	data->a_char = a;
+	data->b_char = b;
+	if (a == 'F' && b == ' ')
+	{
+		f_ctrl(data, flag, str);
+		return ;
+	}
 	else if (a == 'C' && b == ' ')
-		c_space_func(flag, str, data);
-	else
-		ft_error_msg("ARGUMANT - 0 - Error");
-	data->arg_count += 1;
+	{
+		c_ctrl(data, flag, str);
+		return ;
+	}
+	path_helper_v2(flag, data, i);
 }
 
 int	x_close(int keycode, t_data *data)
@@ -69,9 +65,10 @@ void	f_space_func(int flag, char **str, t_data *data)
 	int	flag2;
 
 	flag2 = 0;
-	i = data->flager + 1;
+	i = data->flager + 2;
 	while (data->image_path[i] == ' ')
 		i++;
+	data->flager = i;
 	if (data->image_path[i] == ',')
 		ft_error_msg("',' Error");
 	while (data->image_path[++i])
@@ -86,12 +83,6 @@ void	f_space_func(int flag, char **str, t_data *data)
 				flag += 1;
 		}
 	}
-	if (flag != 2 || flag2 != 2)
-		ft_error_msg("RGB - 0 - Error");
-	str = ft_split(&data->image_path[2], ',');
-	data->floor.r = ft_atoi(str[0]);
-	data->floor.g = ft_atoi(str[1]);
-	data->floor.b = ft_atoi(str[2]);
-	ft_free(str);
-	rgb_ctrl_2(data);
+	flag_ctrl(flag, flag2);
+	get_rgb_2(str, data);
 }

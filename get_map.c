@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: baran <baran@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:53:53 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/25 21:46:49 by bguzel           ###   ########.fr       */
+/*   Updated: 2023/09/29 23:12:54 by baran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	get_map(char *av, t_data *data)
 {
 	int		fd;
-	int		i;
 	char	a;
 
-	i = 0;
 	fd = open(av, O_RDONLY, 0777);
 	if (fd == -1)
 	{
@@ -30,6 +28,8 @@ int	get_map(char *av, t_data *data)
 		if (a == '\n')
 			data->cub_size++;
 	}
+	data->f_flag = 0;
+	data->c_flag = 0;
 	data->cub_size++;
 	close(fd);
 	get_map2(av, data);
@@ -51,7 +51,8 @@ void	get_map2(char *av, t_data *data)
 		{
 			while (data->image_path[data->flager] == ' ')
 				data->flager++;
-			path_helper(data->image_path[data->flager], data->image_path[data->flager + 1], data);
+			path_helper(data->image_path[data->flager],
+				data->image_path[data->flager + 1], data);
 		}
 		free(data->image_path);
 		if (data->arg_count == 6)
