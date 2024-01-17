@@ -6,7 +6,7 @@
 /*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 18:38:03 by yturgut           #+#    #+#             */
-/*   Updated: 2023/09/29 17:17:51 by bguzel           ###   ########.fr       */
+/*   Updated: 2024/01/17 18:21:14 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include "./mlx/mlx.h"
-# include "./libft/libft.h" 
-# include "./get_next_line/get_next_line.h" 
+# include "./ft_libft/libft.h" 
+# include "./ft_get_next_line/get_next_line.h" 
 
 typedef struct s_texture{
 	void	*image;

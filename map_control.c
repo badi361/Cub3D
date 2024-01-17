@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_control.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baran <baran@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 16:57:20 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/29 23:13:28 by baran            ###   ########.fr       */
+/*   Updated: 2023/09/29 17:33:18 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	arg_control(int ac, char **av)
 	if (ac != 2)
 		ft_error_msg("AC Error");
 	len = ft_strlen(av[1]) - 1;
-	if ((av[1][len] != 'b' || av[1][len - 1] != 'u'
-		|| av[1][len - 2] != 'c' || av[1][len - 3] != '.')
+	if ((av[1][len] != 'b' && av[1][len - 1] != 'u'
+		&& av[1][len - 2] != 'c' && av[1][len - 3] != '.')
 		|| ft_strlen(av[1]) < 5)
 		ft_error_msg("MAP IS NOT .CUB Error");
 	return (0);
@@ -30,9 +30,11 @@ void	is_map_one2(t_data *data)
 {
 	int	i;
 	int	j;
+	int	flag;
 	int	len;
 
 	j = 0;
+	flag = 0;
 	while (data ->map[j])
 	{
 		i = 0;

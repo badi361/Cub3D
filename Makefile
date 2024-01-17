@@ -1,8 +1,8 @@
-NAME		= cub3D
+NAME		= cub3d
 
-LBFT		= libft/libft.a
+LBFT		= ft_libft/libft.a
 
-GNL			= get_next_line/get_next_line.a
+GNL			= ft_get_next_line/get_next_line.a
 
 MLX			= mlx/libmlx.a
 
@@ -11,8 +11,8 @@ SRCS        :=      change_map.c \
 					check_map_2.c \
 					destroy_game.c \
 					get_map.c \
-					get_next_line/get_next_line.c \
-					get_next_line/get_next_line_utils.c \
+					ft_get_next_line/get_next_line.c \
+					ft_get_next_line/get_next_line_utils.c \
 					init.c \
 					main.c \
 					map_control.c \
@@ -39,18 +39,18 @@ $(NAME)	: $(LBFT) $(GNL) $(MLX) $(SRCS)
 		@$(CC) $(SRCS) $(MLX) $(LBFT) $(FLAGS) $(GNL) -o $(NAME)
 
 $(LBFT):
-		@make -C libft
+		@make -C ft_libft
 
 $(GNL):
-		@make -C get_next_line
+		@make -C ft_get_next_line
 	
 $(MLX):
 		@make -C mlx
 
 clean :
 		@rm -rf $(NAME)
-		@make fclean -C libft
-		@make fclean -C get_next_line
+		@make fclean -C ft_libft
+		@make fclean -C ft_get_next_line
 		@make clean -C mlx
 
 fclean : clean

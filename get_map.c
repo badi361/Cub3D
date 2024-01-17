@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baran <baran@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bguzel <bguzel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 19:53:53 by bguzel            #+#    #+#             */
-/*   Updated: 2023/09/29 23:12:54 by baran            ###   ########.fr       */
+/*   Updated: 2023/09/29 16:27:49 by bguzel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int	get_map(char *av, t_data *data)
 {
 	int		fd;
+	int		i;
 	char	a;
 
+	i = 0;
 	fd = open(av, O_RDONLY, 0777);
 	if (fd == -1)
 	{
