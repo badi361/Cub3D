@@ -30,4 +30,8 @@ This is a raycasting project built in C using the Minilibx library. It renders a
 $ Dynamic lighting
 
 
-<img width="1436" alt="Ekran Resmi 2023-09-29 23 43 06" src="https://github.com/badi361/Cub3D/assets/115088616/dff06e89-6552-41ed-9fb0-1ccdf7fd1efe">
+
+
+https://github.com/badi361/Cub3D/assets/115088616/9ff18fc3-cebd-4142-b5c4-b683beb34331
+
+
